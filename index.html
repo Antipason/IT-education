@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>freeCodeCamp | free IT education</title>
+  <!-- Font Awesome 6 (free CDN) for clean icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5f7fb;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, sans-serif;
+      color: #1e293b;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+
+    /* header & navigation */
+    .navbar {
+      background: #0f172a;
+      color: white;
+      padding: 16px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .logo i {
+      color: #3b82f6;
+      font-size: 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .btn-outline-light {
+      border: 1px solid #3b82f6;
+      color: white;
+      background: transparent;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-outline-light:hover {
+      background: #3b82f6;
+      border-color: #3b82f6;
+    }
+
+    /* hero */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      padding: 70px 0;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      color: #3b82f6;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      color: #e2e8f0;
+    }
+
+    .badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .badge {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* resource cards */
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 50px 0 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #0f172a;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 26px 22px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #f1f5f9;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 35px rgba(0,0,0,0.1);
+      border-color: #d9e2ef;
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      color: #2563eb;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .card p {
+      color: #475569;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .btn {
+      background: #0f172a;
+      color: white;
+      padding: 12px 22px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: 0.2s;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+      margin-top: auto;
+    }
+
+    .btn i {
+      font-size: 0.9rem;
+    }
+
+    .btn:hover {
+      background: #2563eb;
+      box-shadow: 0 8px 18px rgba(37,99,235,0.3);
+    }
+
+    .btn-light {
+      background: white;
+      color: #0f172a;
+      border: 1px solid #e2e8f0;
+    }
+
+    .btn-light:hover {
+      background: #f8fafc;
+      border-color: #2563eb;
+      color: #2563eb;
+    }
+
+    /* featured free platforms */
+    .platform-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+
+    .platform-card {
+      background: white;
+      border-radius: 20px;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+      border: 1px solid #edf2f7;
+      transition: 0.2s;
+      flex: 1 1 240px;
+    }
+
+    .platform-card:hover {
+      border-color: #3b82f6;
+    }
+
+    .platform-card i {
+      font-size: 2.2rem;
+      color: #2563eb;
+    }
+
+    .free-tag {
+      background: #dcfce7;
+      color: #166534;
+      font-weight: 600;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-left: 8px;
+    }
+
+    /* footer */
+    .footer {
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 40px 0 25px;
+      margin-top: auto;
+      text-align: center;
+    }
+
+    .footer a {
+      color: #cbd5e1;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .footer a:hover {
+      color: white;
+    }
+
+    hr {
+      border: 0.5px solid #334155;
+      margin: 25px 0 15px;
+    }
+
+    @media (max-width: 650px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .nav-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <i class="fas fa-laptop-code"></i> <span>freeCodeCamp</span>
+      </a>
+      <div class="nav-links">
+        <a href="#learn"><i class="fas fa-graduation-cap"></i> Learn</a>
+        <a href="#platforms"><i class="fas fa-layer-group"></i> Platforms</a>
+        <a href="#resources"><i class="fas fa-book-open"></i> Resources</a>
+        <a href="https://github.com/freeCodeCamp/freeCodeCamp" target="_blank" class="btn-outline-light"><i class="fab fa-github"></i> Open Source</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <h1>Learn to <span class="highlight">code</span> — completely free.</h1>
+        <p>Interactive IT education, projects, and certifications. All linked to real, free resources. No paywalls.</p>
+        <div class="badge-group">
+          <span class="badge"><i class="fas fa-check-circle"></i> 100% free</span>
+          <span class="badge"><i class="fas fa-globe"></i> Self-paced</span>
+          <span class="badge"><i class="fas fa-certificate"></i> Verified certificates</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Free learning paths (linked directly) -->
+    <div class="container" id="learn">
+      <h2 class="section-title"><i class="fas fa-code"></i> Start learning now</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="card-icon"><i class="fab fa-html5"></i></div>
+          <h3>Responsive Web Design</h3>
+          <p>HTML, CSS, Flexbox, Grid. Build projects and earn a certification.</p>
+          <a href="https://www.freecodecamp.org/learn/2022/responsive-web-design/" target="_blank" class="btn">
+            Start course <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fab fa-js"></i></div>
+          <h3>JavaScript Algorithms</h3>
+          <p>ES6, data structures, OOP, functional programming. Interactive challenges.</p>
+          <a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/" target="_blank" class="btn">
+            Learn JS <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fab fa-python"></i></div>
+          <h3>Python for Everybody</h3>
+          <p>Free University of Michigan course on freeCodeCamp's YouTube & site.</p>
+          <a href="https://www.freecodecamp.org/learn/scientific-computing-with-python/" target="_blank" class="btn">
+            Python path <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-database"></i></div>
+          <h3>SQL & Databases</h3>
+          <p>Relational databases, SQL, PostgreSQL. Full curriculum available.</p>
+          <a href="https://www.freecodecamp.org/learn/relational-database/" target="_blank" class="btn">
+            Explore SQL <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-cloud"></i></div>
+          <h3>Cloud & DevOps</h3>
+          <p>AWS, Docker, Kubernetes free tutorials via freeCodeCamp publications.</p>
+          <a href="https://www.freecodecamp.org/news/tag/devops/" target="_blank" class="btn">
+            Read guides <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Cyber Security</h3>
+          <p>Foundational security, ethical hacking, and network defense content.</p>
+          <a href="https://www.freecodecamp.org/news/tag/cybersecurity/" target="_blank" class="btn">
+            Security articles <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- External free platforms (all linked) -->
+    <div class="container" id="platforms">
+      <h2 class="section-title"><i class="fas fa-building-columns"></i> Trusted free platforms</h2>
+      <div class="platform-row">
+        <div class="platform-card">
+          <i class="fas fa-graduation-cap"></i>
+          <div>
+            <strong>freeCodeCamp <span class="free-tag">free</span></strong>
+            <div style="font-size:0.9rem; color:#475569;">Interactive curriculum + projects</div>
+            <a href="https://www.freecodecamp.org" target="_blank" style="font-size:0.85rem;">freecodecamp.org</a>
+          </div>
+        </div>
+        <div class="platform-card">
+          <i class="fas fa-university"></i>
+          <div>
+            <strong>Harvard CS50 <span class="free-tag">free</span></strong>
+            <div style="font-size:0.9rem; color:#475569;">Legendary intro to computer science</div>
+            <a href="https://cs50.harvard.edu/x/" target="_blank" style="font-size:0.85rem;">cs50.harvard.edu</a>
+          </div>
+        </div>
+        <div class="platform-card">
+          <i class="fab fa-google"></i>
+          <div>
+            <strong>Google IT Support <span class="free-tag">free audit</span></strong>
+            <div style="font-size:0.9rem; color:#475569;">Coursera (free without certificate)</div>
+            <a href="https://www.coursera.org/professional-certificates/google-it-support" target="_blank" style="font-size:0.85rem;">coursera.org/google-it</a>
+          </div>
+        </div>
+        <div class="platform-card">
+          <i class="fas fa-code"></i>
+          <div>
+            <strong>The Odin Project <span class="free-tag">free</span></strong>
+            <div style="font-size:0.9rem; color:#475569;">Full stack JavaScript/Ruby</div>
+            <a href="https://www.theodinproject.com" target="_blank" style="font-size:0.85rem;">theodinproject.com</a>
+          </div>
+        </div>
+        <div class="platform-card">
+          <i class="fab fa-microsoft"></i>
+          <div>
+            <strong>Microsoft Learn <span class="free-tag">free</span></strong>
+            <div style="font-size:0.9rem; color:#475569;">Azure, C#, Power Platform</div>
+            <a href="https://learn.microsoft.com" target="_blank" style="font-size:0.85rem;">learn.microsoft.com</a>
+          </div>
+        </div>
+        <div class="platform-card">
+          <i class="fas fa-infinity"></i>
+          <div>
+            <strong>Khan Academy <span class="free-tag">free</span></strong>
+            <div style="font-size:0.9rem; color:#475569;">Computing & AP CS principles</div>
+            <a href="https://www.khanacademy.org/computing" target="_blank" style="font-size:0.85rem;">khanacademy.org</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional free resources & YouTube -->
+    <div class="container" id="resources">
+      <h2 class="section-title"><i class="fas fa-play-circle"></i> Video & community learning</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="card-icon"><i class="fab fa-youtube"></i></div>
+          <h3>freeCodeCamp YouTube</h3>
+          <p>Full courses: Python, Machine Learning, AWS, etc. 8M+ subscribers.</p>
+          <a href="https://www.youtube.com/c/freecodecamp" target="_blank" class="btn">
+            Watch free <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-laptop"></i></div>
+          <h3>CS50 YouTube</h3>
+          <p>All Harvard CS50 lectures publicly available, updated yearly.</p>
+          <a href="https://www.youtube.com/c/cs50" target="_blank" class="btn">
+            CS50 lectures <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-users"></i></div>
+          <h3>freeCodeCamp Forum</h3>
+          <p>Ask questions, share projects. Friendly developer community.</p>
+          <a href="https://forum.freecodecamp.org" target="_blank" class="btn">
+            Join forum <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-newspaper"></i></div>
+          <h3>Dev Resources (free)</h3>
+          <p>Curated list of free APIs, hosting, and design tools.</p>
+          <a href="https://github.com/ripienaar/free-for-dev" target="_blank" class="btn">
+            Free dev tools <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to action -->
+    <div style="background: #eef2ff; padding: 50px 0; margin-top: 20px;">
+      <div class="container" style="text-align: center;">
+        <i class="fas fa-rocket" style="font-size: 3rem; color: #2563eb; margin-bottom: 15px;"></i>
+        <h2 style="font-size: 2rem; margin-bottom: 15px;">Start your IT journey today.</h2>
+        <p style="max-width: 600px; margin: 0 auto 25px; color: #334155;">Every resource on this page is 100% free and linked for immediate access. No registration required to begin.</p>
+        <a href="https://www.freecodecamp.org/learn" target="_blank" class="btn" style="font-size: 1.2rem; padding: 14px 38px;">
+          <i class="fas fa-code"></i> Start learning (free)
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p style="font-weight: 600; font-size: 1.2rem; margin-bottom: 10px;">
+        <i class="fas fa-heart" style="color: #ef4444;"></i> free IT education for everyone
+      </p>
+      <p>All links direct to official free resources. We do not host paywalled content.</p>
+      <div style="margin: 18px 0;">
+        <a href="https://www.freecodecamp.org" target="_blank">freeCodeCamp</a>
+        <a href="https://cs50.harvard.edu/x/" target="_blank">CS50</a>
+        <a href="https://www.theodinproject.com" target="_blank">The Odin Project</a>
+        <a href="https://learn.microsoft.com" target="_blank">Microsoft Learn</a>
+      </div>
+      <hr>
+      <p style="font-size: 0.9rem;">Built with ❤️ to make IT education accessible. Deploy instantly. © 2025 freeCodeCamp-style hub.</p>
+    </div>
+  </footer>
+</body>
+</html>
